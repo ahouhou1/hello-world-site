@@ -3,7 +3,6 @@ document.getElementById("learnMoreBtn")?.addEventListener("click", () => {
   window.scrollTo({ top: document.getElementById("weather").offsetTop - 40, behavior: "smooth" });
 });
 
-// Weather: geolocate -> call serverless -> render
 (async function initWeather() {
   const status = document.getElementById("weather-status");
   const card = document.getElementById("weather-card");
