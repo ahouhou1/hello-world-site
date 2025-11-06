@@ -52,3 +52,11 @@ footer {
   background-color: #f0f0f0;
   margin-top: 3rem;
 }
+
+.card { border:1px solid #eee; border-radius:12px; padding:1rem; background:#fff; margin:1rem 0; }
+.hidden { display:none; }
+.row { display:flex; align-items:center; gap:1rem; }
+.big { font-size:2rem; font-weight:600; }
+.meta { margin-top:.5rem; display:flex; gap:1rem; font-size:.9rem; color:#555; }
+#weather img { background:#f6f6f6; border-radius:8px; }
+
