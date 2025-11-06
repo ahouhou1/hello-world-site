@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+</head>
+<body>
+  <h2>Welcome to your Dashboard</h2>
+  <p id="userEmail"></p>
+  <button id="logout">Logout</button>
+
+  <script type="module">
+    import { supabase } from "./js/supabase.js";
+
+    const token = localStorage.getItem("sb-token");
+    if (!token) {
+      alert("You must log in first!");
+      window.location.href = "login.html";
+    }
+
+    const { data: { user } } = await supabase.auth.getUser();
+    document.getElementById("userEmail").textContent = user?.email;
+
+    document.getElementById("logout").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      localStorage.removeItem("sb-token");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
