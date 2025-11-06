@@ -1,3 +1,9 @@
+// simple hero button demo (keep or remove)
+document.getElementById("learnMoreBtn")?.addEventListener("click", () => {
+  window.scrollTo({ top: document.getElementById("weather").offsetTop - 40, behavior: "smooth" });
+});
+
+// Weather: geolocate -> call serverless -> render
 (async function initWeather() {
   const status = document.getElementById("weather-status");
   const card = document.getElementById("weather-card");
@@ -8,10 +14,8 @@
   const feelsEl = document.getElementById("weather-feels");
   const windEl = document.getElementById("weather-wind");
   const humEl = document.getElementById("weather-humidity");
+  if (!status) return;
 
-  if (!status) return; // page without weather
-
-  // Geolocation works on HTTPS or localhost
   if (!("geolocation" in navigator)) {
     status.textContent = "Geolocation not supported in this browser.";
     return;
@@ -42,13 +46,12 @@
     }
     const w = await r.json();
 
-    // Render
     const iconUrl = w.icon ? `https://openweathermap.org/img/wn/${w.icon}@2x.png` : "";
     if (iconUrl) iconEl.src = iconUrl;
     iconEl.alt = w.desc || "weather icon";
 
     placeEl.textContent = [w.name, w.country].filter(Boolean).join(", ");
-    tempEl.textContent = `${w.temp ?? "–"}°C`;
+    tempEl.textContent = (w.temp ?? "–") + "°C";
     descEl.textContent = w.desc ? w.desc[0].toUpperCase() + w.desc.slice(1) : "";
     feelsEl.textContent = `Feels: ${w.feels ?? "–"}°C`;
     windEl.textContent = `Wind: ${w.wind ?? "–"} m/s`;
@@ -57,11 +60,9 @@
     status.classList.add("hidden");
     card.classList.remove("hidden");
   } catch (err) {
-    // Permission denied or timeout → explain and offer manual refresh
     status.innerHTML = `Couldn’t get your location or weather. 
       <button id="weather-retry">Try again</button>`;
-    const btn = document.getElementById("weather-retry");
-    if (btn) btn.onclick = () => location.reload();
+    document.getElementById("weather-retry")?.addEventListener("click", () => location.reload());
     console.error(err);
   }
 })();

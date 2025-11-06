@@ -1,4 +1,4 @@
-// api/weather.js
+// Serverless function (Vercel) to proxy OpenWeatherMap safely
 export default async function handler(req, res) {
   try {
     const { lat, lon, units = "metric", lang = "en" } = req.query;
@@ -26,17 +26,17 @@ export default async function handler(req, res) {
     }
 
     const data = await r.json();
-    // Minimal clean payload for the client
     const out = {
       name: data.name,
       country: data.sys?.country,
       temp: Math.round(data.main?.temp),
       feels: Math.round(data.main?.feels_like),
       desc: data.weather?.[0]?.description,
-      icon: data.weather?.[0]?.icon, // e.g. "10d"
+      icon: data.weather?.[0]?.icon,
       wind: data.wind?.speed,
       humidity: data.main?.humidity
     };
+
     res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=600");
     return res.status(200).json(out);
   } catch (e) {

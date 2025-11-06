@@ -1,58 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ahmad HOUHOU - Portfolio</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <h1>Ahmad HOUHOU</h1>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ahmad HOUHOU – Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="brand">
+        <span class="brand-badge"></span> Ahmad HOUHOU
+      </a>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-      <section class="hero">
-        <h2>Welcome to my personal website 👋</h2>
-        <p>
-          I'm a software engineer passionate about building clean, efficient, and human-centered solutions.
-        </p>
-        <button id="learnMoreBtn">Learn more</button>
-      </section>
-    </main>
+  <main>
+    <section class="hero">
+      <h1>Welcome 👋</h1>
+      <p>Shipping small, sharp projects. Learning in public.</p>
+      <button class="button" id="learnMoreBtn">Learn more</button>
+    </section>
 
-    <section id="weather" class="weather card">
-  <h2>Weather near you</h2>
-  <p id="weather-status">Detecting location…</p>
-  <div id="weather-card" class="hidden">
-    <div class="row">
-      <img id="weather-icon" alt="icon" width="48" height="48" />
-      <div>
-        <div id="weather-place"></div>
-        <div id="weather-temp" class="big"></div>
-        <div id="weather-desc"></div>
+    <!-- Weather -->
+    <section id="weather" class="card">
+      <h2>Weather near you</h2>
+      <p id="weather-status">Detecting location…</p>
+      <div id="weather-card" class="hidden">
+        <div class="weather-row">
+          <img id="weather-icon" alt="icon" />
+          <div class="weather-main">
+            <div class="weather-place" id="weather-place"></div>
+            <div class="weather-temp" id="weather-temp"></div>
+            <div class="weather-desc" id="weather-desc"></div>
+          </div>
+        </div>
+        <div class="weather-meta">
+          <span class="badge" id="weather-feels"></span>
+          <span class="badge" id="weather-wind"></span>
+          <span class="badge" id="weather-humidity"></span>
+        </div>
       </div>
-    </div>
-    <div class="meta">
-      <span id="weather-feels"></span>
-      <span id="weather-wind"></span>
-      <span id="weather-humidity"></span>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
+  <footer>
+    <p>© 2025 Ahmad HOUHOU</p>
+  </footer>
 
-    <footer>
-      <p>© 2025 Ahmad HOUHOU. All rights reserved.</p>
-    </footer>
-
-    <script src="js/main.js"></script>
-  </body>
+  <script src="js/main.js"></script>
+</body>
 </html>
