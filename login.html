@@ -4,47 +4,54 @@
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Login</title>
   <link rel="stylesheet" href="css/style.css"/>
+  <!-- (optional) add login.css if you used it -->
+  <!-- <link rel="stylesheet" href="css/login.css" /> -->
 </head>
-<body>
-<main class="card" style="max-width:420px;margin:4rem auto;padding:1.2rem">
-  <h2>Login</h2>
-  <form id="loginForm" class="mt-2">
-    <label>Email<input id="email" type="email" required /></label>
-    <label>Password<input id="password" type="password" required /></label>
-    <button class="button" type="submit">Sign in</button>
+<body class="auth-page">
+<main class="card auth-card" style="max-width:420px;">
+  <h2 class="auth-title">Login</h2>
+  <p class="auth-subtitle">Sign in with your email and password.</p>
+
+  <form id="loginForm" class="auth-form">
+    <label class="auth-label">Email</label>
+    <input class="auth-input" id="email" type="email" required />
+
+    <label class="auth-label">Password</label>
+    <input class="auth-input" id="password" type="password" required />
+
+    <div class="auth-actions">
+      <button class="auth-btn" type="submit" id="loginBtn">Sign in</button>
+    </div>
+
+    <p id="msg" class="auth-status"></p>
   </form>
-  <p id="msg" class="mt-2" style="color:var(--muted)"></p>
 </main>
 
 <script type="module">
 import { supabase } from "./js/supabase.js";
 
 const form = document.getElementById("loginForm");
-const msg = document.getElementById("msg");
+const msg  = document.getElementById("msg");
+const btn  = document.getElementById("loginBtn");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  btn.disabled = true;
   msg.textContent = "Signing in…";
+
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) { msg.textContent = "❌ " + error.message; return; }
-
-  // 1) user is logged in; check if MFA factors exist
-  const { data: factorsData, error: fErr } = await supabase.auth.mfa.listFactors();
-  if (fErr) { msg.textContent = "❌ " + fErr.message; return; }
-
-  const totpFactor = factorsData?.factors?.find(f => f.factor_type === "totp" && f.status === "verified");
-
-  if (totpFactor) {
-    // User has TOTP, ask for a code
-    sessionStorage.setItem("mfa_factor_id", totpFactor.id);
-    window.location.href = "mfa.html?mode=challenge";
-  } else {
-    // No TOTP enrolled → guide to enroll
-    window.location.href = "mfa.html?mode=enroll";
+  if (error) {
+    msg.textContent = "❌ " + error.message;
+    btn.disabled = false;
+    return;
   }
+
+  // Simple redirect on success
+  msg.textContent = "✅ Logged in!";
+  setTimeout(() => { window.location.href = "dashboard.html"; }, 300);
 });
 </script>
 </body>
